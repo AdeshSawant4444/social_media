@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="d-grid gap-3">
+   
+{% for p in profile %}
+
+<div class=" p-2 bg-light border">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{p.user.username}}</h5>
+          <p class="card-text">@{{p.user.username|lower}}</br>
+            Email : {{p.user.email}}
+        </p>
+          <a href="{% url 'S_M:user_profile' p.id %}" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+
+{% endfor %}
+</div>
+
+{% endblock content %}
+
+
+

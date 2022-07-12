@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<p>Username : {{user_profile.user.username|title}}</p>
+<p>First Name : {{user_profile.user.first_name}}</p>
+<p>Last Name : {{user_profile.user.last_name}}</p>
+<p>Email : {{user_profile.user.email}}</p>
+
+<p>Follows:</p>
+<ul>
+{% for p in user_profile.follows.all %}
+<li><a href="{% url 'S_M:user_profile' p.id %}">@{{p.user.username|lower}}</a></li>
+{% endfor %}
+</ul>
+
+<p>Followed by:</p>
+<ul>
+{% for p in user_profile.followed_by.all %}
+<li><a href="{% url 'S_M:user_profile' p.id %}">@{{p.user.username|lower}}</a></li>
+{% endfor %}
+</ul>
+{% endblock content %}
+

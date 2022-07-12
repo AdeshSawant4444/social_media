@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="d-grid gap-3">
+   
+{% for p in profile_list %}
+
+<div class=" p-2 bg-light border">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{p.user.username}}</h5>
+          <p class="card-text"><a href="{% url 'S_M:user_profile' p.id %}">@{{p.user.username|lower}}</a></br>
+            Email : {{p.user.email}}
+        </p>
+        {% if p in request.user.profile.follows.all %}
+          <a href="{% url 'S_M:follow' p.id %}" class="btn btn-primary disabled">follow</a>
+          {% else %}
+          <a href="{% url 'S_M:follow' p.id %}" class="btn btn-primary">follow</a>
+          
+          {% endif %}
+          
+          {% if p in request.user.profile.follows.all %}
+         <a href="{% url 'S_M:un_follow' p.id %}" class="btn btn-primary">unfollow</a>
+ {% else %}
+ <a href="{% url 'S_M:un_follow' p.id %}" class="btn btn-primary disabled">unfollow</a>
+{% endif %}
+        </div>
+      </div>
+    </div>
+
+{% endfor %}
+</div>
+{% if is_paginated %}
+  {% if page_obj.has_previous %}
+    <a href='/profiles?page={{page_obj.previous_page_number}}'>Previous</a>
+  {% endif %}
+    Page : {{page_obj.number}}
+  {% if page_obj.has_next %}
+    <a href='/profiles?page={{page_obj.next_page_number}}'>Next</a>
+  {% endif %}
+{% endif %}
+
+{% endblock content %}
+
+
+
